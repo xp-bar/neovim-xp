@@ -1,5 +1,12 @@
 function! s:ReturnType()
     if (&ft=='php')
+        let is_func = search('function', 'Wcn', line('.'))
+
+        if (is_func == 0)
+            echom "Not a function"
+            return 1
+        endif
+
         let max_backward = line('.') - 2
         let type_line = search('@return[ ]\zs.*\ze', 'bWn', max_backward)
 

@@ -7,7 +7,7 @@ function! s:ReturnType()
             return 1
         endif
 
-        let max_backward = line('.') - 2
+        let max_backward = line('.') - 4
         let type_line = search('@return[ ]\zs.*\ze', 'bWn', max_backward)
 
         if (type_line == 0)
@@ -44,9 +44,12 @@ function! s:ReturnType()
     endif
 endfunction
 
-noremap <unique> <script> <Plug>XpReturnType <SID>ReturnType
-noremap <silent> <SID>ReturnType :call <SID>ReturnType()<CR>
+nmap <silent> <SID>ReturnType :call <SID>ReturnType()<CR>
 
-if !hasmapto('<Plug>XpReturnType')
+if mapcheck('<Plug>XpReturnType') == ""
+    nmap <unique> <script> <Plug>XpReturnType <SID>ReturnType
+endif
+
+if mapcheck('<Leader>r') == ""
     map <unique> <Leader>r <Plug>XpReturnType
 endif

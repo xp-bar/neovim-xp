@@ -38,3 +38,11 @@ function! php#php#class(...)
         call setline('.',  extend(extend(l:lines, l:contents), ['}']))
     endif
 endfunction
+
+function! php#php#new_class(...)
+    if (&ft=='php')
+        call php#php#class(a:000)
+        call php#php#namespace()
+        call setline(1, ['<?php'])
+    endif
+endfunction

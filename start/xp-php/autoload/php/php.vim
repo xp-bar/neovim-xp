@@ -12,3 +12,29 @@ function! php#php#namespace()
         call inputrestore()
     endif
 endfunction
+
+function! php#php#class(...)
+    if (&ft=='php')
+        call inputsave()
+
+        let l:name = 'class ' . substitute(@%, '[0-9A-z\/]*\/\|\..*$', '', 'g')
+        let l:lines = [getline('.'), l:name, '{']
+        let l:contents = [
+                    \ '   /**',
+                    \ '    * Constructor',
+                    \ '    *',
+                    \ '    * @return void',
+                    \ '    */',
+                    \ '    public function __construct()',
+                    \ '    {',
+                    \ '        //',
+                    \ '    }'
+                    \ ]
+
+        " if a:1 =~  nc"
+        "     l:contents = ['    //'];
+        " endif
+
+        call setline('.',  extend(extend(l:lines, l:contents), ['}']))
+    endif
+endfunction

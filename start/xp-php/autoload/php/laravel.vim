@@ -35,3 +35,12 @@ function! php#laravel#blade_files(...)
         \ })
 endfunction
 "  }}}
+
+
+" --- Goto a get...Attribute method definition
+function! php#laravel#goto_attribute()
+    let l:attribute = expand("<cword>")
+    let l:method_name = "get" . toupper(l:attribute[0]) . l:attribute[1:] . "Attribute"
+
+    execute "tag " . l:method_name
+endfunction

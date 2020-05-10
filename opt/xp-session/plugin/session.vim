@@ -5,22 +5,20 @@ function! s:session_list(ArgLead, CmdLine, CursorPos)
             \ "restore"
             \ ]
     else
-        return systemlist('ls ' . g:sessions_dir)
+        return systemlist('ls -t ' . g:sessions_dir)
     endif
 endfunction
 
 function! s:session(...)
-    if (a:0 > 1)
-        let session = g:sessions_dir . a:1
-        let do = a:2
+    let session = g:sessions_dir . a:1
+    let l:do = a:0 > 1 ? a:2 : "restore"
 
-        if (do == "save")
-            exe 'mks!' session
-        elseif (do == "restore")
-            exe 'source' session
-        endif
-    else
-        let session = '~/vim-sessions/' . a:1
+    if (l:do == "save" || filereadable(session) == 1)
+        echo 'Saving Session...'
+        exe 'mks!' session
+        echo 'Saved!'
+    elseif (l:do == "restore" && filereadable(session) == 0)
+        echom 'Opening Session...'
         exe 'source' session
     endif
 endfunction

@@ -1,7 +1,6 @@
 function! s:where(...)
-    let l:result = expand("%")
-
     let l:args = join(a:000)
+    let l:result = expand(l:args =~ '--short' ? '%:t' : '%')
 
     if (l:args =~ "--lnum")
         let l:result .= ' +' . line('.')

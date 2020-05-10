@@ -1,3 +1,61 @@
+function! vue#snippets#set_mutator(...)
+    let l:type = input('Type: ')
+    let l:property = input('Parameter: ')
+    let l:snake_property = substitute(
+        \       l:property,
+        \       '\([a-z]\)\([A-Z]\)',
+        \       '\1\L_\2',
+        \       'g'
+        \)
+    let l:pascal_property = substitute(
+        \   l:snake_property,
+        \   '^\([a-z]\)',
+        \   '\U\1',
+        \   'g'
+        \)
+
+    call append(line('.'), [
+        \ '   /**',
+        \ '    * Mutator for ' . l:property,
+        \ '    *',
+        \ '    * @param {Object} state',
+        \ '    * @param {'. l:type .'} ' . l:property,
+        \ '    */',
+        \ '    set' . l:pascal_property . '(state, ' . l:property . ') {',
+        \ '        state.' . l:property . ' = ' . l:property . ';',
+        \ '    },'
+        \   ])
+endfunction
+
+function! vue#snippets#get_getter(...)
+    let l:type = input('Type: ')
+    let l:property = input('Parameter: ')
+    let l:snake_property = substitute(
+        \       l:property,
+        \       '\([a-z]\)\([A-Z]\)',
+        \       '\1\L_\2',
+        \       'g'
+        \)
+    let l:pascal_property = substitute(
+        \   l:snake_property,
+        \   '^\([a-z]\)',
+        \   '\U\1',
+        \   'g'
+        \)
+
+    call append(line('.'), [
+        \ '   /**',
+        \ '    * Getter for ' . l:property,
+        \ '    *',
+        \ '    * @param {Object} state',
+        \ '    * @param {'. l:type .'} state.' . l:property,
+        \ '    * @return {'. l:type .'}',
+        \ '    */',
+        \ '    get' . l:pascal_property . '({' . l:property . '}) {',
+        \ '        return ' . l:property . ';',
+        \ '    },'
+        \   ])
+endfunction
 
 function! s:vue_import_handler(file)
     let l:component_path = a:file
@@ -26,6 +84,8 @@ function! vue#snippets#webpack_async_import()
     \   'sink': function('s:vue_import_handler'),
     \   'down': '40%'
     \   })
+
+    doautocmd User WebpackImportPost
 endfunction
 
 function! vue#snippets#vue_files(...)

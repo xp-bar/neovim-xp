@@ -75,6 +75,8 @@ function! s:vue_import_handler(file)
         \       '    return Component.default;',
         \       '};',
         \   ])
+
+    doautocmd User WebpackImportPost
 endfunction
 
 function! vue#snippets#webpack_async_import()
@@ -84,8 +86,6 @@ function! vue#snippets#webpack_async_import()
     \   'sink': function('s:vue_import_handler'),
     \   'down': '40%'
     \   })
-
-    doautocmd User WebpackImportPost
 endfunction
 
 function! vue#snippets#vue_files(...)

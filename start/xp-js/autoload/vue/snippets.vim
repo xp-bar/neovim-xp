@@ -15,12 +15,12 @@ function! vue#snippets#set_mutator(...)
         \)
 
     call append(line('.'), [
-        \ '   /**',
-        \ '    * Mutator for ' . l:property,
-        \ '    *',
-        \ '    * @param {Object} state',
-        \ '    * @param {'. l:type .'} ' . l:property,
-        \ '    */',
+        \ '    /**',
+        \ '     * Mutator for ' . l:property,
+        \ '     *',
+        \ '     * @param {Object} state',
+        \ '     * @param {'. l:type .'} ' . l:property,
+        \ '     */',
         \ '    set' . l:pascal_property . '(state, ' . l:property . ') {',
         \ '        state.' . l:property . ' = ' . l:property . ';',
         \ '    },'
@@ -44,13 +44,13 @@ function! vue#snippets#get_getter(...)
         \)
 
     call append(line('.'), [
-        \ '   /**',
-        \ '    * Getter for ' . l:property,
-        \ '    *',
-        \ '    * @param {Object} state',
-        \ '    * @param {'. l:type .'} state.' . l:property,
-        \ '    * @return {'. l:type .'}',
-        \ '    */',
+        \ '    /**',
+        \ '     * Getter for ' . l:property,
+        \ '     *',
+        \ '     * @param {Object} state',
+        \ '     * @param {'. l:type .'} state.' . l:property,
+        \ '     * @return {'. l:type .'}',
+        \ '     */',
         \ '    get' . l:pascal_property . '({' . l:property . '}) {',
         \ '        return ' . l:property . ';',
         \ '    },'

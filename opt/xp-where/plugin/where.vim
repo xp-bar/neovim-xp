@@ -15,6 +15,7 @@ function! s:where(...)
     endif
     
     " copy to pasteboard
+    let @" = l:result
     let @* = l:result
     echom @*
 endfunction
